@@ -1,0 +1,20 @@
+2022/12/03 17:35:21 error: open /path/to/config.toml: no such file or directory
+can't open configuration file
+main.readConfig
+	/home/ladoblanco/dev/goDev/linkedIn/goEssential/errors/errors.go:32
+main.main
+	/home/ladoblanco/dev/goDev/linkedIn/goEssential/errors/errors.go:13
+runtime.main
+	/usr/lib/go-1.19/src/runtime/proc.go:250
+runtime.goexit
+	/usr/lib/go-1.19/src/runtime/asm_amd64.s:1594
+2022/12/03 17:40:10 error: open /path/to/config.toml: no such file or directory
+can't open configuration file
+main.readConfig
+	/home/ladoblanco/dev/goDev/linkedIn/goEssential/errors/errors.go:37
+main.main
+	/home/ladoblanco/dev/goDev/linkedIn/goEssential/errors/errors.go:13
+runtime.main
+	/usr/lib/go-1.19/src/runtime/proc.go:250
+runtime.goexit
+	/usr/lib/go-1.19/src/runtime/asm_amd64.s:1594
