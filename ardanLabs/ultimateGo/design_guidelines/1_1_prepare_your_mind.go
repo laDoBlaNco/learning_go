@@ -52,4 +52,30 @@ package notes
 	- Is it a good program?
 	- Is it an efficient program?
 	- Is it correct?
+    - Was it done on time?
+    - What did it cost?
+
+- Aspire To
+  - Be a champion for quality, efficiency and simplicity.
+  - Have a point a view about what you want to do and see in your code.
+  - Value introspection and self-review. This isn't focused on my code reviews, but on me as an engeineer.
+
+READING CODE:
+  - Go is a language that focuses on code being readable as a first priciple.
+    "Code is read many more times than its is written." - Dave Cheney
+    "Programming is, among other things, a kind of writing. One way to learn writing is to write,
+    but in all other forms of writing, one also reads. We read examples of both bood and bad to
+    facilitate learning. But how many programmers learn to write programs by reading programs?" - Gerald M Wienberg
+
+MENTAL models
+  - We must constantly make sure that our mental model of the code we are writing and maintaining
+    is clear. When we can't remember where a piece of logic is or we can't remember how something
+    works, then we are losing our mental model of the code. This is a clear indication that we need
+    to refactor. Focus time on structuring code that provides the best possible mental model and
+    during code reviews validate our mental models are still intact.
+
+    How much code do we think we can maintain in our heads? It was said that a single dev can maintain
+    a mental model of a program of about 1 ream of paper (~10k LoC). If we do the math, that would mean
+    that a millon LoC code base would talk around 100 people to maintain it. That's 100 people that need
+    to be coordinated, grouped, tracked and in constant feedback loop of communication.
 */
