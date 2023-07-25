@@ -3,9 +3,21 @@ package notes
 /*
 	CORRECTNESS VS PERFORMANCE
 
-	- Another issue with that when we write code we focus on performance first. When we do that, we are guessing.
+	- Another issue is when we write code and we focus on performance first. When we do that, we are guessing.
 	  We need to focus on correctness vs performance and then we can worry about performance later with all
-	  the tools that Go gives us to handle this.
+	  the tools that Go gives us to handle this. We need to benchmark or profile to know if code
+	  isn't fast enough. Then and ONLY thenshould we optimize for performance. This can't be done
+	  until we have something that is working.
+	  
+	  Improvement comes from writing code and thinking about the code we've written. Then refactoring
+	  the code to make it better. This requires the help of other people to also read the code we
+	  are writing, prototype different ideas to validate them, try different approaches and  even 
+	  asking others to attempt a solution.  Too many devs aren't prototyping the ideas first before 
+	  they are already writing production code. We skip the learning process when we do this and 
+	  typically go straight to bad production code. Refactoring them comes in as part of the dev
+	  cycle. Its the process of IMPROVING the code from the things we are learning on a daily basis.
+	  Without time to refactor, code will becoem impossible to manage and maintain over time. This
+	  is the reason we have the legacy issues we see today in the industry.
 
 	  "Make it correct, make it clear, make it concise, than make it fast. In that order." - Wes Dyer
 
