@@ -32,5 +32,8 @@ package notes
 		- To generalize an algorithm
 		- When users can declare their own interfaces
 		- If its not clear how the interface makes the code better. 
+		
+	GO IS A COMPOSITION LANGUAGE. FOR ME ITS ABOUT BUILDING SMALL, SIMPLE, READABLE PIECES AND 
+	COMPOSING THEM TOGETHER. 
 
 */
