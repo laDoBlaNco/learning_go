@@ -5,7 +5,9 @@ package main
 	are read-only variables, but in Go they aren't variables at all. Constants only exist at compile-time
 	They are very type-safe.
 
-	Also the fact that they have a parallel type system. They can be of a type and of a kind
+	Also the fact that they have a parallel type system. They can be of a type and of a kind. When a constant
+	is untyped, it's considered to be a KIND. Constants of a kind can be implicitly converted by the compiler.
+	This all happens at compile time not runtime.
 */
 
 // Untyped Constants - 'kinds' can have a precision of 256 bits as opposed to the lower precision of

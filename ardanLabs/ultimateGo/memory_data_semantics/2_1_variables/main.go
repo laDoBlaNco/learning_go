@@ -12,6 +12,9 @@ import "fmt"
 
 // There are 3 classes of types in Go:
 // 	- builtin types
+// 		- Types provide integrity and readability by answering 2 questions:
+// 			- What is the amount of memory to allocate? (1,2,4,8 bytes)
+// 			- What does that memory represent? (int,uint,bool,....)
 //  - reference types
 //  - custom user-defined struct types
 
@@ -30,6 +33,16 @@ func main() {
 	var c float64 // this tells us both the size (memory) and what it reps
 	var d bool    // here we know what its used for, but the memory allocation is just 1 byte of the 8
 
+	// This stuff about the word size is important because its also at the heart of understanding memory
+	// allocation and references, etc. The word size represents the amount of memory allocation required
+	// to store integers and pointers for a given arch.
+	// 		- 32 bit arch: word size is 4 bytes of memory allocation
+	// 		- 64 bit arch: word size is 8 bytes of memory allocation
+	// This is key because in Go we have internal data structures (maps, channels, slices, interfaces, and
+	// functions) that store integers and pointers. Everything is integers and pointers. The size of these
+	// data structures will be based on the arch being used to build the program. So the amount of memory
+	// used to build an int, a pointer, a word, etc will always be the same on the same arch.
+
 	// part of the integrity of Go is always setting its zero default, if the engineer doesn't do so. One of
 	// the warts of Go is that there are many ways to create a var, so the team needs  to use conventions to
 	// deal with that. For example above, we use 'var' when its a zero default declaration and below we use
@@ -42,7 +55,8 @@ func main() {
 	// Declare variables and initialize.
 	// Using the short variable declaration operator.
 	aa := 10
-	bb := "hello" // still taling about strings, the 2 word value above which was nil over 0 will now be
+	bb := "hello"
+	// A string is a 2 word internal data structure in Go. The 2 word value above which was nil over 0 will now be
 	// a pointer to where that "hello" starts in memory over the number of bytes 5. This is key as we'll
 	// see it again with arrays and slices. So a string is 2 words (a pointer / length or number of bytes)
 	cc := 3.14159

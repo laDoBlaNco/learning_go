@@ -36,8 +36,17 @@ func main() {
 			// is iterating over ITS OWN COPY of the friends array, not the original. so we do change out betty
 			// to jack, but because its a copy, it gets thrown away after the change is made.
 			// THESE ARE THE DATA SEMANTICS THAT ARE SO IMPORTANT TO UNDERSTAND as we will truly understand
-			// the costs of what we are doing and the decisions we are making. 
+			// the costs of what we are doing and the decisions we are making.
 		}
 	}
 
 }
+
+/*
+So again as a guideline, if the data we are working on is a numeric, string, or
+bool, we use value semantics to move the data around. This includes declaring
+fields on a struct type. The nice thing about using value semantics is that we
+are guaranteed that each function is operatoring on its own copy. This means that reads and writes
+to the data are isolated to that function. This helps with integrity and identifying bugs related
+to data corruption. 
+*/

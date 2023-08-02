@@ -23,7 +23,7 @@ func main() {
 	// A pointer variable is not a named type but its a literal type, so we get the pointer for free in that
 	// it'll always be that 4byte or 8 byte value, not the actual memory allocation for the value.
 
-	// This means that when our goroutin moves to that new frame in the function on our stack we now have
+	// This means that when our goroutine moves to that new frame in the function on our stack we now have
 	// INDIRECT access to memory in the main frame. NOTE: the goroutine only had DIRECT access to the memory
 	// in the frame we are currently in. So pointer semantics allow the goroutine to reach outside of its
 	// sandbox to read and write.

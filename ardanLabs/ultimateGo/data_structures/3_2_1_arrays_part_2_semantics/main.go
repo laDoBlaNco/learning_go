@@ -13,6 +13,11 @@ import "fmt"
 
 func main() {
 
+	// Remember that a string is an immutable, two word, data structure representing a pointer to a
+	// backing array of bytes and the total number of bytes in the backing array. Since this array
+	// is set to its zero value state, every element is set to zero value state. This means each
+	// string has the first set to nil and the second word set to 0.
+
 	// Declare an array of five strings that is initialized to its zero default
 	var fruits [5]string // here we allocate an array of 5 strings. But what does this
 	// really mean. A contiguous block of about 40 bytes (each string is a 2
@@ -66,5 +71,5 @@ func main() {
 // underlying array. the one exception to this is if we were trying to represent
 // 'null' in which we would use pointer semantics, since the zero default of a pointer
 // is null.
-// all of this includes not just function parameters and vars, but fields and 
-// types as well. 
+// all of this includes not just function parameters and vars, but fields and
+// types as well.
