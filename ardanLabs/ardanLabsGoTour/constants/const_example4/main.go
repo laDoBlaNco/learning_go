@@ -58,8 +58,8 @@ func main() {
 	// Subtract 5 nanoseconds from now using a variable of type int64. So here we are actually
 	// putting our untyped literal KIND into a Typed 'box', which means it'll have the same
 	// footprint or limitations of the type we are using 'int64'.
-	minusFive := int64(-5)
-	variable := now.Add(minusFive) 
+	// minusFive := int64(-5)
+	// variable := now.Add(minusFive) 
 
 	// example4.go:50: cannot use minusFive (type int64) as type time.Duration in argument to now.Add
 
@@ -67,5 +67,5 @@ func main() {
 	fmt.Printf("Now     : %v\n", now)
 	fmt.Printf("Literal : %v\n", literal)
 	fmt.Printf("Constant: %v\n", constant)
-	fmt.Printf("Variable: %v\n", variable)
+	// fmt.Printf("Variable: %v\n", variable)
 }
