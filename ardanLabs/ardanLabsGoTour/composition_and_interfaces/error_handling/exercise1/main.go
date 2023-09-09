@@ -1,94 +1,65 @@
 package main
 
-import "fmt"
+import (
+	"errors"
+	"fmt"
+)
 
 /*
-	Error Handling Design -
-	Integrity matters and its a big part of the engineering process. At the heart
-	of integrity is error handling. When it comes to Go, error handling is not an
-	exception to be handled later or somewhere else in the code. Its a part of the
-	main path and needs to be a main focus. This was a deliberate design decision by
-	Pike, Griesemer, and Thompson to make errors values and a first class citizen in Go.
+	Create two error variables, one called ErrInvalidValue and the other called
+	ErrAmountTooLarge. Provide the static message for each variable. Then write
+	a function called checkAmount that accepts a float64 type value and returns
+	an error value. Check the value for zero and if it is, return the ErrInvalidValue.
+	Check the value for greater than $1,000 and if it is, return ErrAmountTooLarge
+	Write a main function to call the checkAmount function and check the return error
+	value. Display a proper message to the screen.
 
-	Developers have the responsibility to return enough context about any error so a
-	user can make an informed decision about how to proceed. Handling an error is about
-	three things:
-		1. logging the error
-		2. not propagating the error any further
-		3. determining if the Goroutine/program needs to be terminated.
-
-	Again, in Go, errors are just values, so they can be anything you need them to
-	be. They can maintain any state or behavior.
 */
 
-// ERROR HANDLING BASICS -
-// The error interface is built into the language. This is why it appears to be an
-// unexported identifier.
-type error interface {
-	Error() string
-}
+var (
+	// 1. Declare an error variable name ErrInvalidValue using the New function
+	// from the errors package
+	ErrInvalidValue = errors.New("You have an invalid value")
 
-// Any concrete value that implements this interface (o sea has an Error() method)
-// can be used as an error value
-// One important aspect of Go is that error handling is done in a decoupled state
-// through this interface. A key reason for this is because error handling is an
-// aspect of our application that is more susceptible to change and improvement.
-// This interface is th etype Go applications must use as the return type for error
-// handling. This is why funcs that return errors always use 'error' Its the interface.
+	// 2. Declare an error variable named ErrAmountTooLarge using the New function
+	// from the errors package
+	ErrAmountTooLarge = errors.New("Your amount is too large")
+)
 
-// =====================================================================================
-// This is the most commonly used concrete error value in Go programs. It's declared
-// in the errors package from the standard library. Notice how the type is UNEXPORTED
-// and it has one UNEXPORTED field which is a string. We can also see how pointer
-// semantics are used to implement the error interface. This means that only addresses
-// to values of this type can be shared and stored inside the interface. The method
-// just returns the error string.
-type errorString struct { // our concrete type that will implement the error interface
-	s string
-}
-
-func (e *errorString) Error() string { // implementing the error interface
-	return e.s
-}
-
-// Its important to note that the implementation of the Error method serves the purpose
-// of implementing the interface and as well LOGGING. If any user needs to parse the
-// string returned from this method, then we've already failed to provide the user with
-// the right amount of context to make an informed decision.
-
-// ======================================================================================
-// The New function is how an error using the concrete type errorString is constructed.
-// Notice how the function returns the error using the error interface. Also notice
-// how pointer semantics are being used
-func New(text string) error {
-	return &errorString{text}
+//  3. Declare a function name checkAmount that accepts a value of type float64
+//     and returns an error interface value
+func checkAmount(amt float64) error {
+	// 4. Is the parameter equal to zero. If so then return the error variable
+	if amt == 0 {
+		return ErrInvalidValue
+	}
+	// 5. Is the parameter great than 1000. If so then return the other error variable
+	if amt > 1000 {
+		return ErrAmountTooLarge
+	}
+	// 6. Return nil for the error value
+	return nil
 }
 
 func main() {
 
-	// Again, context is everything with errors. Each error must provide enough
-	// context to allow the caller to make an informed decision about the state
-	// of the goroutine/application. In this example, the webCall function returns
-	// an error with the message Bad Request. In the main function here the call
-	// is made to webCall and then a check is made to see if an error as occurred
-	// with the call.
-	if err := webCall(); err != nil {
-		// Here we have the check for the error above. The key and something we see
-		// throughout Go is to check is err!=nil. What this condition is asking is,
-		// is there a concrete value stored inside the err interface value. When the
-		// interface value is storing a concrete value, there is an error. In this
-		// case, the context is literally just the fact that a concrete value exists,
-		// its not important what the concrete value is.
-		fmt.Println(err)
-		return
+	// 7. Call the checkAmount function and check the error, then use a switch/case to compare
+	//    the error with each variable. Add a default case. Return if there is an error
+	err := checkAmount(9999)
+	if err != nil {
+		switch err {
+		case ErrInvalidValue:
+			fmt.Println(err)
+			return
+		case ErrAmountTooLarge:
+			fmt.Println(err)
+			return
+		default:
+			fmt.Println(err)
+			return
+		}
 	}
-	fmt.Println("Life is good")
 
+	// 8. Display everything is good
+	fmt.Println("Everything is good")
 }
-
-func webCall() error {
-	return New("Bad Request")
-}
-
-// What about when it is important to know what error value exists??? This is where we
-// use error variables, which we'll see in the next example.

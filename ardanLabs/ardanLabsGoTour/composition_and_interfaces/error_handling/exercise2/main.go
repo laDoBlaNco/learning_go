@@ -1,68 +1,70 @@
 package main
 
-// Note the import of errors. We didn't do this on the first example since we built
-// out our own errors interface and New func. But moving fwd we just use the stdlib
-// package 'errors'
 import (
 	"errors"
 	"fmt"
 )
 
-// So what if its important to know WHAT error value exists inside the err interface
-// and not just if one exists or not? Then we an use error variables.
+/*
 
-// Error variables provide a good mechanic to identify what specific error is being
-// returned. They have an idiom of starting with the prefix Err and are based on the
-// concrete type errorString from the errors package (o sea we just provide them with
-// a string using the errors.New() func)
+	Create a custom error type called appError that contains three fields, err error,
+	message string and code int. Implement the error interface providing your own message
+	Implement a second method named temporary that returns false when the value of the
+	code field is 9. Write a function called checkFlag that accepts a bool. if the value is
+	false, return a pointer of your custom error type initialized as you like. If the value
+	is true, return a default error. Write a main function to call the checkFlag function
+	and check the error using the temporary interface.
 
-var (
-	// ErrBadRequest is returned when there are problems with the request
-	ErrBadRequest = errors.New("Bad Request")
+*/
 
-	// ErrPageMoved is returned when a 301/302 is returned
-	ErrPageMoved = errors.New("Page Moved")
-)
+//  1. Declare a strut type named appError with tree fields, err of type error, message
+//     of type string and code of type int.
+type appError struct {
+	err     error
+	message string
+	code    int
+}
 
-func main() {
+// 2. Declare method  for the appError struct type that implements the error interface
+func (ae *appError) Error() string {
+	return fmt.Sprintf("there was an app error %s: %s\nCode: %d\n",ae.err,ae.message,ae.code)
+}
 
-	/*
-		In this application after the call to webCall is made, a check can be performed
-		to see if there is a concrete value stored inside the err interfacde variable.
-		If there is, then a switch statement is being used to determine which error it
-		was by comparing err to the different ERROR VARIABLES
+//  3. Declare a method for the appError type named Temporary that returns true when the value of
+//     code field is not 9
+func (ae *appError) Temporary() bool {
+	return (ae.code != 9)
+}
 
-		In this case, the context of the error is based on which error variable was
-		returned.
-	*/
+//  4. Declare the tempororary interface type wtih a method name Temporary that takes no params
+//     and returns a bool
+type temporary interface {
+	Temporary() bool
+}
 
-	if err := webCall(true); err != nil {
-		switch err {
-		case ErrBadRequest:
-			fmt.Println("Bad Request Occured")
-			return
-		case ErrPageMoved:
-			fmt.Println("The page moved")
-			return
-		default:
+// 5. Declare a function namec checkFlag that accepts a bool and returns an error interface value
+func checkFlag(b bool) error {
+	if !b {
+		return &appError{errors.New("Flag False"), "The flag was false", 9}
+	}
+
+	// default error
+	return errors.New("Flag True")
+}
+
+func main(){
+	// 6. Call the checkFlag function to simulate an error of the concrete type
+	if err:=checkFlag(false);err!=nil{
+		// 7. Check the concrete type and handle appropriately
+		switch e:=err.(type){
+		case temporary:
 			fmt.Println(err)
-			return
+			if !e.Temporary(){
+				fmt.Println("Critical Error!") 
+			}
+		default:
+			fmt.Println(err)	
 		}
 	}
-	fmt.Println("Life is good")
-
+	
 }
-
-// In this new version of webCall, the function returns one or the other error
-// variable. This allows the caller to determine which error took place, o sea
-// giving more context to the user.
-func webCall(b bool) error {
-	if b {
-		return ErrBadRequest // again the use of early returns helps us not use 'else'
-	}
-	return ErrPageMoved
-}
-
-// Now what if an error variable is not enough context?? What if some special state
-// needs to be checked, like with networking errors?? In these cases, a custom concrete
-// error type is the answer and we'll see that in the next example.
