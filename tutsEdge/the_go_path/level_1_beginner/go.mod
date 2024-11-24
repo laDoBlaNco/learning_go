@@ -1,3 +1,3 @@
-module github.com/ladoblanco/level_1_beginner
+module github.com/
 
 go 1.20
